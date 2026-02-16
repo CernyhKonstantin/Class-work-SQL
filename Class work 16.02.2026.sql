@@ -178,3 +178,73 @@ GROUP BY c.Id, c.FirstName
 ORDER BY OrderCount DESC, c.FirstName;
 
 GO
+
+CREATE TABLE smartphones (
+  id INT PRIMARY KEY IDENTITY(1,1),
+  ProductName VARCHAR(100),
+  ProductModel VARCHAR(100),
+  Manufacture VARCHAR(100),
+  ProductCount INT,
+  Price DECIMAL(10, 2),
+  Storage VARCHAR(100)
+);
+
+insert into smartphones (ProductName, ProductModel, Manufacture, ProductCount, Price, Storage) values
+    ('Galaxy', 'M32', 'Samsung', 5, 8555, '128GB'),
+    ('Galaxy', 'A73', 'Samsung', 10, 20699, '128GB'),
+    ('Galaxy', 'M32', 'Samsung', 15, 23499, '128GB'),
+    ('Galaxy', 'M32', 'Samsung', 7, 6749, '64GB'),
+    ('Galaxy', 'M32', 'Samsung', 52, 51099, '512GB'),
+    ('Galaxy', 'M32', 'Samsung', 13, 25499, '256GB'),
+    ('Apple Iphone', '13', 'Apple', 20, 35999, '128GB'),
+    ('Apple Iphone', '11', 'Apple', 25, 25499, '128GB'),
+    ('Apple Iphone', '14', 'Apple', 100, 41499, '128GB'),
+    ('Apple Iphone', '10', 'Apple', 3, 12599, '128GB'),
+    ('Xiaomi Redmi', '9A', 'Xiaomi', 23, 4199, '64GB'),
+    ('Xiaomi Redmi', '9C', 'Xiaomi', 31, 4799, '32GB'),
+    ('Xiaomi Redmi', 'Note 11', 'Xiaomi', 70, 7199, '128GB'),
+    ('Xiaomi Redmi', 'Note 9', 'Xiaomi', 4, 8199, '128GB'),
+    ('Huawei', 'P30', 'Huawei', 25, 18458, '128GB'),
+    ('Huawei', 'Nova 9', 'Huawei', 30, 17033, '256GB'),
+    ('Huawei', 'Nova 9 SE', 'Huawei', 40, 13999, '128GB'),
+    ('Honor', '20 Pro', 'Honor', 21, 14569, '128GB'),
+    ('Honor', '50 Lite', 'Honor', 38, 13744, '128GB'),
+    ('Honor', '8X', 'Honor', 19, 13228, '128GB');
+
+GO
+
+SELECT 
+    Id,
+    ProductName,
+    Manufacturer AS Brand,
+    ProductCount,
+    Price,
+    NULL AS ProductModel,
+    NULL AS Storage
+FROM Products
+
+UNION ALL
+
+SELECT
+    id,
+    ProductName,
+    Manufacture AS Brand,
+    ProductCount,
+    Price,
+    ProductModel,
+    Storage
+FROM smartphones;
+
+GO
+
+SELECT Id,ProductName,Price, 
+
+CASE
+WHEN Price <800 THEN 'expensive'
+ELSE 'unexpensive'
+END
+as ORDER_TYPE
+FROM Products;
+
+GO
+
